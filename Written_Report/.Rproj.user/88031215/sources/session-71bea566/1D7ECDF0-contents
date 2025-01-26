@@ -18,4 +18,5 @@ Data_Setup <- function(){
     LCL_Stocks_dat <- LCL_Stocks_init %>%
         filter(str_sub(Tickers, 1, 3) %in% jse_top_40)
 
+
 }
