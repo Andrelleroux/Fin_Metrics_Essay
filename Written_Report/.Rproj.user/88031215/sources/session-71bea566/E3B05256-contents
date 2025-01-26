@@ -42,7 +42,7 @@ header-includes:
 
 ```{r}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
-pacman::p_load(tidyverse, )
+pacman::p_load(tidyverse, riskParityPortfolio, portfolioBacktest, xts)
 
 setwd("~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_Report")
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
