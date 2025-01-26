@@ -22,8 +22,7 @@ Risk_Parity_LCL <- function(data = LCL_Stocks_dat){
     rpp_naive <- riskParityPortfolio(sigma, formulation = "diag")
 
     rpp_mu <- riskParityPortfolio(sigma, formulation = "rc-over-b-double-index",
-                                  mu = mu, lmd_mu = 1e-3, # for expected return term
-                                  w_ub = 0.16)
+                                  mu = mu, lmd_mu = 1e-3)
 
     w_all <- cbind("EWP"           = rep(1/nrow(sigma), nrow(sigma)),
                    "RPP (naive)"   = rpp_naive$w,

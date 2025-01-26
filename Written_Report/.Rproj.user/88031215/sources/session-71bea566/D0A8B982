@@ -1,27 +1,27 @@
 {
-    "id": "AC8EAD70",
-    "path": "~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_Report/code/Risk_Parity.R",
-    "project_path": "code/Risk_Parity.R",
+    "id": "D0A8B982",
+    "path": "~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_Report/code/Return_v_Risk.R",
+    "project_path": "code/Return_v_Risk.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1737900488611.0,
+    "created": 1737921379286.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 7,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "17,35",
-        "scrollLine": "0"
+        "cursorPosition": "31,19",
+        "scrollLine": "10"
     },
     "folds": "",
-    "lastKnownWriteTime": 1737922010,
+    "lastKnownWriteTime": 1737922418,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1737922010580,
+    "last_content_update": 1737922418979,
     "read_only": false,
     "read_only_alternatives": []
 }
