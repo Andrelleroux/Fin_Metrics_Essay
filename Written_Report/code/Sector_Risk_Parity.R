@@ -154,6 +154,14 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
                                                                                          col = rep(brewer.pal(12, "Paired"), length.out = 37),
                                                                                          cex.legend = 0.5)
 
+    All_Ret_Data <- data.frame(date = Sector_plot$date,
+                               Risk_Parity = RPP_RetPort$returns,
+                               Equal_Weighting = Equal_RetPort$returns,
+                               Max_Sharpe = Tan_RetPort$returns) %>%
+        rename(Risk_Parity = portfolio.returns, Equal_Weighting = portfolio.returns.1,
+               Max_Sharpe = portfolio.returns.2)
+
+    Return_List <- list(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6, All_Ret_Data)
 
 
 }
