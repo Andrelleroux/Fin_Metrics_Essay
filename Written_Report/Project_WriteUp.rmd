@@ -23,7 +23,7 @@ header-includes:
 
 \begin{titlepage}
   \centering
-  \includegraphics[width=0.4\textwidth]{Stellenbosch\_University\_New\_Logo.png} \par
+  \includegraphics[width=0.4\textwidth]{bin/Stellenbosch\_University\_New\_Logo.png} \par
   \vspace{1cm}
   {\scshape\LARGE An Investigation Into the Causal Impact of Carbon Taxation on Carbon Emissions \par}
   \vspace{1cm}
@@ -43,7 +43,7 @@ header-includes:
 ```{r}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 pacman::p_load(tidyverse, riskParityPortfolio, xts, quadprog, tbl2xts, PerformanceAnalytics,
-               RColorBrewer)
+               RColorBrewer, knitr, kableExtra)
 
 setwd("~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_Report")
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))

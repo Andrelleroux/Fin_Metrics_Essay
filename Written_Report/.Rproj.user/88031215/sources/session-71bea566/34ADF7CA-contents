@@ -164,4 +164,5 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
     Return_List <- list(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6, All_Ret_Data)
 
 
+
 }
