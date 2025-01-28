@@ -25,7 +25,7 @@ Portfolio_Backtest <- function(data_RPP = LCL_Stocks_dat, data_comp = LCL_indice
         mu <- colMeans(filter_dataset[-1])
 
         risk_parity_mod <- riskParityPortfolio(sigma, formulation = "rc-over-b-double-index",
-                                                         mu = mu, lmd_mu = 1e-4)
+                                                         mu = mu, lmd_mu = 0.00023)
         return(risk_parity_mod$w)
     }
 
