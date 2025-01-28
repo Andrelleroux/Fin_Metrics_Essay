@@ -33,6 +33,4 @@ Risk_Parity_LCL <- function(data = LCL_Stocks_dat){
         theme_minimal() +
         theme(legend.position = "bottom")
 
-
-
 }

@@ -1,21 +1,16 @@
 library(tidyverse)
 library(xts)
-library(portfolioBacktest)
 library(riskParityPortfolio)
 
-Risk_Parity_LCL <- function(data = LCL_Stocks_dat){
+Sector_Risk_Parity <- function(data = LCL_Index_dat){
 
     source("code/impute_missing_returns.r")
 
-    Parity_Data <- data %>%
-        mutate(Tickers = str_sub(Tickers, 1, 3)) %>%
-        select(date, Tickers, Return) %>%
-        spread(key = Tickers, value = Return) %>%
-        filter(date > ymd("2016-01-01")) %>%
+    Sector_Data <- data %>% spread(key = Tickers, value = Returns) %>%
         impute_missing_returns(., impute_returns_method = "Drawn_Distribution_Own")
 
-    sigma <- cov(Parity_Data[-1])
-    mu <- colMeans(Parity_Data[-1])
+    sigma <- cov(Sector_Data[-1])
+    mu <- colMeans(Sector_Data[-1])
 
     rpp_vanilla <- riskParityPortfolio(sigma)
 
