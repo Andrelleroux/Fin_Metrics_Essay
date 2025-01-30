@@ -66,10 +66,18 @@ Sector_Plots[[2]]
 
 Next I can look at the risk versus return balance of the Risk Parity portfolio when computed with the additional optimisation on returns, as can be seen there is decreasing marginal returns in Expected Return when taking on additional risk. This is done by running through a for loop of different lambda_mu values, a weighting parameter that sets the focus between risk and returns optimisation. These values are then stored and plotted.
 
-Next, other function are created in order to calculate the relevant weights of the different portfolios at each rebalance date. The risk_parity function takes in a dataset and the current date as arguments and then returns the relevant weights looking back at the 5 years prior to the current date to optimise the portfolio using the riskParityPortfolio package and the RPP + mu method. A similar function is then built for the Maximum Sharpe ratio portfolio, this function is called max_sharpe_ratio and takes the same argument 
+Next, other function are created in order to calculate the relevant weights of the different portfolios at each rebalance date. The risk_parity function takes in a dataset and the current date as arguments and then returns the relevant weights looking back at the 5 years prior to the current date to optimise the portfolio using the riskParityPortfolio package and the RPP + mu method. A similar function is then built for the Maximum Sharpe ratio portfolio, this function is called max_sharpe_ratio and takes the same arguments as the risk_parity function. This functio uses the quadprog package to optimise a portfolio based on the maximum sharpe ratio and standard constraints such as non-negativity and addition to 1.
+
+The output of these functions for every rebalance date, as well as for the equally weighted portfolio is the parsed to the rmsfuns::Safe_return.portfolio function is order to compute the portfolio returns of each of the three portfolios. This is combined with the index specific returns of the bond market and the JSE ALSI to plot the cumulative returns of all the portfolios and other two indices. As seen below.
 
 ```{r}
 Sector_Plots[[3]]
+```
+
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+Sector_Risk_Parity(data = LCL_Index_dat, rebal = Rebal_Days)
 ```
 
 
