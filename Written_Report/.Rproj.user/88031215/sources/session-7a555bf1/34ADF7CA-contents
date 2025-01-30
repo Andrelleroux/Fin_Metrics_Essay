@@ -45,16 +45,7 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
              x = "Risk Concentration", y = "Expected Return") +
         theme_minimal()
 
-    risk_parity <- function(dataset, current_date) {
-
-        filter_dataset <- dataset %>% filter(date >= current_date - years(5) & date <= current_date)
-        sigma <- cov(filter_dataset[-1])
-        mu <- colMeans(filter_dataset[-1])
-
-        risk_parity_mod <- riskParityPortfolio(sigma, formulation = "rc-over-b-double-index",
-                                               mu = mu, lmd_mu = 0.00023)
-        return(risk_parity_mod$w)
-    }
+    source("code/Risk_Parity_Function.r")
 
     rebalance_dates <- rebal %>% filter(Date_Type == "Reb Trade Day") %>%
         filter(date >= as.Date("2004-11-30") & date <= as.Date("2024-12-31")) %>% select(date)

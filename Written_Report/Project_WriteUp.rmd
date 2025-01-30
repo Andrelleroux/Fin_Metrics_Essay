@@ -40,7 +40,7 @@ header-includes:
 
 \pagenumbering{arabic}
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
+```{r, echo = FALSE, message=FALSE, warning=FALSE, results='hide'}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 pacman::p_load(tidyverse, riskParityPortfolio, xts, quadprog, tbl2xts, PerformanceAnalytics,
                RColorBrewer, knitr, kableExtra)
@@ -49,7 +49,7 @@ setwd("~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_R
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
 ```
 
-```{r}
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE, fig.show='hide'}
 Data <- Data_Setup()
 
 LCL_Index_dat <- Data[[2]]
@@ -134,10 +134,7 @@ plot_1 <- Sector_Plots[[1]]
 plot_1
 ```
 
-### Figure 1: Distribution of Treatment Probabilities {-}
 
-
-## LASSO-OLS Model
 
 
 # Conclusion

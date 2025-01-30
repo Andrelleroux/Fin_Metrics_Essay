@@ -3,7 +3,7 @@
     "path": "~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_Report/Project_WriteUp.rmd",
     "project_path": "Project_WriteUp.rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2855827054",
     "contents": "",
     "dirty": false,
     "created": 1737899265645.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "54,26",
-        "scrollLine": "49"
+        "cursorPosition": "51,80",
+        "scrollLine": "40"
     },
     "folds": "",
-    "lastKnownWriteTime": 1738264933,
+    "lastKnownWriteTime": 1738270977,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1738264933487,
+    "last_content_update": 1738270977347,
     "read_only": false,
     "read_only_alternatives": []
 }
