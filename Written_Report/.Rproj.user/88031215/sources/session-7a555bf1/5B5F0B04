@@ -3,25 +3,25 @@
     "path": "~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project/Written_Report/code/Data_Setup.R",
     "project_path": "code/Data_Setup.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "3435886956",
     "contents": "",
     "dirty": false,
     "created": 1738176385988.0,
     "source_on_save": false,
-    "relative_order": 10,
+    "relative_order": 4,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "26,21",
-        "scrollLine": "1"
+        "cursorPosition": "29,39",
+        "scrollLine": "4"
     },
     "folds": "",
-    "lastKnownWriteTime": 1738250252,
+    "lastKnownWriteTime": 1738260897,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1738250252880,
+    "last_content_update": 1738260897139,
     "read_only": false,
     "read_only_alternatives": []
 }

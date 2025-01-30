@@ -25,7 +25,7 @@ header-includes:
   \centering
   \includegraphics[width=0.4\textwidth]{bin/Stellenbosch\_University\_New\_Logo.png} \par
   \vspace{1cm}
-  {\scshape\LARGE An Investigation Into the Causal Impact of Carbon Taxation on Carbon Emissions \par}
+  {\scshape\LARGE A Report on the Viability of a Risk Parity Portfolio in South Africa  \par}
   \vspace{1cm}
   {\LARGE\itshape by 22568948 \par}
   \vspace{1.5cm}
@@ -67,7 +67,17 @@ Sector_Plots <- Sector_Risk_Parity(data = LCL_Index_dat, rebal = Rebal_Days)
 
 The data used for this report is a collection of local indices, to be used as proxies for different assets and sectors, as well as the rebalance dates for the portfolio during the period of interest. The following indices are used.
 
+\begin{itemize}
+  \item \textbf{J203}: The JSE All Share Index (ALSI) as a proxy for equities.
+  \item \textbf{ALBITR}: A composite bond index as a proxy for money market assets.
+  \item \textbf{J311}: An index for the 25 largest industrial equities.
+  \item \textbf{J212}: An index for the top 15 financial equities.
+  \item \textbf{J310}: An index for the 10 largest resources equities, a proxy for commodities.
+  \item \textbf{J253}: An index of companies in the Real Estate sector, a proxy for real estate assets.
+  \item \textbf{STeFI}: Index for short-term fixed-interest assets, used as the risk-free rate.
+\end{itemize}
 
+This data consists of monthly returns from December 1999 until November 2024. However, some indices only have data starting from a later date, the latest being the start of 2002. For these indices the missing values where randomly drawn from the distribution of returns, based on the valid observations of that index.
 
 # Methodology 
 
@@ -117,14 +127,12 @@ The sum of the weights of the assets must be equal to 1.
 
 A third approach is used for comparison, the Equal Weighting Portfolio (EWP) is one of the simplest methods of diversification, where all assets are given equal weights in order to get exposure to all asset classes. Comparing a Risk Parity Portfolio, a Maximum Sharpe Ratio Portfolio, and an Equal-Weight Portfolio provides valuable insights into the risk-return trade-offs and diversification benefits of risk parity investing. The Risk Parity Portfolio aims to allocate risk equally across assets, ensuring that no single asset class dominates the portfolio’s overall risk. In contrast, the Maximum Sharpe Ratio Portfolio seeks to optimize the trade-off between expected return and risk, prioritizing assets that offer the highest risk-adjusted returns, which may lead to concentrated allocations in high-return, low-volatility assets. The Equal-Weight Portfolio, which assigns identical weights to all assets, serves as a baseline for comparison, offering simplicity and diversification without considering volatility or return expectations. By analysing these three approaches, one can assess whether risk parity delivers superior diversification benefits, how it compares in terms of return efficiency relative to the Maximum Sharpe portfolio, and whether its risk allocation provides advantages over a simple equal weighting approach. This comparison helps in understanding the validity of risk parity in achieving stable, well-balanced portfolio performance in the South African market.
 
+# Results
+
 ```{r}
 plot_1 <- Sector_Plots[[1]]
 plot_1
 ```
-
-# Results
-
-
 
 ### Figure 1: Distribution of Treatment Probabilities {-}
 

@@ -26,6 +26,9 @@ Data_Setup <- function(){
         filter(Tickers %in% Indices_of_Interest) %>%
         select(-Name)
 
+    STEFI_mean <- LCL_indice_init %>% filter(Tickers == "STEFI") %>%
+        summarise(Mean = mean(Returns))
+
     List_for_Return <- list(LCL_Stocks_dat, LCL_Index_dat, Rebal_Days)
 
 }
