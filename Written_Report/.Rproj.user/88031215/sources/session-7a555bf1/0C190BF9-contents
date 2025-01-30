@@ -1,0 +1,52 @@
+library(did)
+
+merged_data_diff <- merged_data %>%
+    filter(Code != "AUS", Code %in% Prop_countries) %>%
+    mutate(Year = as.numeric(as.character(Year)), Code = as.numeric(Code)) %>%
+    group_by(Code) %>%
+    mutate(treat_time = ifelse(any(CarbonTax_Bin == 1),
+                               min(Year[CarbonTax_Bin == 1]),
+                               0)) %>% ungroup()
+
+att_gt_results <- att_gt(
+    yname = "ln_emissions",      # Outcome variable
+    gname = "treat_time",     # Group identifier for treatment timing
+    idname = "Code",       # Unit identifier (e.g., country)
+    tname = "Year",           # Time variable
+    xformla = ~1,             # No covariates, or include covariates here
+    data = merged_data_diff,              # Your dataset
+    panel = TRUE              # Panel data structure
+)
+
+summary(att_gt_results)
+
+ggdid(att_gt_results)
+
+aggte_results <- aggte(att_gt_results, type = "dynamic", na.rm = T)
+summary(aggte_results)
+ggdid(aggte_results)
+
+ggdid_plot <- ggdid(aggte_results)
+
+ggdid_plot +
+    scale_x_continuous(
+        breaks = seq(-70, 30, by = 5),
+        labels = seq(-70, 30, by = 5)
+    ) +
+    labs(title = NULL) +
+    theme_minimal()
+
+aggte_results_group <- aggte(att_gt_results, type = "group", na.rm = T)
+summary(aggte_results_group)
+
+ggdid(aggte_results_group)
+
+ggdid2_plot <- ggdid(aggte_results_group)
+
+ggdid2_plot +
+    labs(title = NULL) +
+    theme(legend.position = "none")+
+    theme_minimal()
+
+agg_effects <- aggte(att_gt_results, type = "simple", na.rm = T) # "simple" gives overall ATE
+summary(agg_effects)
