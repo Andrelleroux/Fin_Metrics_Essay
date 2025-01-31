@@ -72,6 +72,34 @@ arguments and then returns the relevant weights looking back at the 5
 years prior to the current date to optimise the portfolio using the
 riskParityPortfolio package and the RPP + mu method. A similar function
 is then built for the Maximum Sharpe ratio portfolio, this function is
-called max_sharpe_ratio and takes the same argument
+called max_sharpe_ratio and takes the same arguments as the risk_parity
+function. This functio uses the quadprog package to optimise a portfolio
+based on the maximum sharpe ratio and standard constraints such as
+non-negativity and addition to 1.
+
+The output of these functions for every rebalance date, as well as for
+the equally weighted portfolio is the parsed to the
+rmsfuns::Safe_return.portfolio function is order to compute the
+portfolio returns of each of the three portfolios. This is combined with
+the index specific returns of the bond market and the JSE ALSI to plot
+the cumulative returns of all the portfolios and other two indices. As
+seen below.
 
 ![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+Next the PerformanceAnalytics package allows me to plot the weights of
+the portfolio at the start of each month throughout the period. This
+shows the different approaches to diversification very clearly, with the
+RPP preferring to invest more into bonds throughout the period, while
+the Max Sharpe ratio portfolio changes the structure and preference of
+the assets very regularly. The plots were originally made with the
+PerformanceAnalytics package, however in order to adapt their appearance
+the dataset was converted to a data frame and plotted with ggplot.
+
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)![](README_files/figure-markdown_github/unnamed-chunk-7-2.png)![](README_files/figure-markdown_github/unnamed-chunk-7-3.png)
+
+Next the function puts all the returns data and dates together in order
+to be able to do thorough analysis of the returns of each of these
+portfolios. This dataset is then parsed to a function called
+Sector_Port_Analysis in order to look at the performance of each
+portfolio.

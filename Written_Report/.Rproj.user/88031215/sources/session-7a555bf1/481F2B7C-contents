@@ -74,10 +74,13 @@ The output of these functions for every rebalance date, as well as for the equal
 Sector_Plots[[3]]
 ```
 
+Next the PerformanceAnalytics package allows me to plot the weights of the portfolio at the start of each month throughout the period. This shows the different approaches to diversification very clearly, with the RPP preferring to invest more into bonds throughout the period, while the Max Sharpe ratio portfolio changes the structure and preference of the assets very regularly. The plots were originally made with the PerformanceAnalytics package, however in order to adapt their appearance the dataset was converted to a data frame and plotted with ggplot.
 
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-Sector_Risk_Parity(data = LCL_Index_dat, rebal = Rebal_Days)
+```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10}
+Sector_Plots[[4]]
+Sector_Plots[[5]]
+Sector_Plots[[6]]
 ```
 
+Next the function puts all the returns data and dates together in order to be able to do thorough analysis of the returns of each of these portfolios. This dataset is then parsed to a function called Sector_Port_Analysis in order to look at the performance of each portfolio. 
 

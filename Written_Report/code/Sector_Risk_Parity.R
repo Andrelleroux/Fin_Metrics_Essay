@@ -26,7 +26,8 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
 
     plot_1 <- barplotPortfolioRisk(w_all, sigma) +
         theme_minimal() +
-        theme(legend.position = "bottom")
+        theme(legend.position = "bottom",
+              plot.title = element_blank())
 
     lmd_sweep <- 10^seq(-5, 2, .25)
     mean_return <- c()
@@ -41,8 +42,7 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
     plot_2 <- ggplot(data.frame(risk_concentration, mean_return),
            aes(x = risk_concentration, y = mean_return)) +
         geom_line() + geom_point() +
-        labs(title = "Expected Return vs Risk Concentration",
-             x = "Risk Concentration", y = "Expected Return") +
+        labs(x = "Risk Concentration", y = "Expected Return") +
         theme_minimal()
 
     source("code/Risk_Parity_Function.r")
@@ -112,11 +112,11 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
         # Start at 1
         mutate(cumreturn_Equal = cumreturn_Equal / first(cumreturn_Equal)) %>%
         ggplot() +
-        geom_line(aes(date, cumreturn_Rpp, color = "Risk Parity Portfolio")) +
-        geom_line(data = Sector_plot, aes(date, cumreturn_ALSI, color = "All Share Index")) +
-        geom_line(data = Sector_plot, aes(date, cumreturn_Bonds, color = "ALBITR Bonds Index")) +
-        geom_line(aes(date, cumreturn_Tan, color = "Maximum Sharpe Ratio Portfolio")) +
-        geom_line(aes(date, cumreturn_Equal, color = "Equal Weighting Portfolio")) +
+        geom_line(aes(date, cumreturn_Rpp, color = "RPP")) +
+        geom_line(data = Sector_plot, aes(date, cumreturn_ALSI, color = "ALSI")) +
+        geom_line(data = Sector_plot, aes(date, cumreturn_Bonds, color = "Bonds Index")) +
+        geom_line(aes(date, cumreturn_Tan, color = "Maximum Sharpe Ratio")) +
+        geom_line(aes(date, cumreturn_Equal, color = "Equal Weighting")) +
         labs(
             x = "Date",
             y = "Cumulative Returns",
@@ -127,23 +127,44 @@ Sector_Risk_Parity <- function(data = LCL_Index_dat, rebal = Rebal_Days){
             legend.position = "bottom"
         )
 
-    plot_4 <- RPP_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
-                                                                             ylab = "Weight (%)",
-                                                                             xlab = "Date",
-                                                                             col = rep(brewer.pal(12, "Paired"), length.out = 37),
-                                                                             cex.legend = 0.5)
+    df_weights <- RPP_RetPort$BOP.Weight %>%
+        .[endpoints(., 'months')] %>%
+        xts_tbl() %>%
+        pivot_longer(cols = -date, names_to = "Asset", values_to = "Weight")
 
-    plot_5 <- Tan_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
-                                                                                       ylab = "Weight (%)",
-                                                                                       xlab = "Date",
-                                                                                       col = rep(brewer.pal(12, "Paired"), length.out = 37),
-                                                                                       cex.legend = 0.5)
+    # Plot using ggplot
+    plot_4 <- ggplot(df_weights, aes(x = date, y = Weight, fill = Asset)) +
+        geom_bar(stat = "identity", position = "stack") +  # Stacked bars
+        scale_fill_manual(values = rep(brewer.pal(12, "Paired"), length.out = 37)) +
+        labs(x = "Date", y = "Weight (%)", fill = "Asset") +
+        theme_minimal() +
+        theme(legend.position = "bottom", legend.text = element_text(size = 8))
 
-    plot_6 <- Equal_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
-                                                                                         ylab = "Weight (%)",
-                                                                                         xlab = "Date",
-                                                                                         col = rep(brewer.pal(12, "Paired"), length.out = 37),
-                                                                                         cex.legend = 0.5)
+    df_weights <- Tan_RetPort$BOP.Weight %>%
+        .[endpoints(., 'months')] %>%
+        xts_tbl() %>%
+        pivot_longer(cols = -date, names_to = "Asset", values_to = "Weight")
+
+    # Plot using ggplot
+    plot_5 <- ggplot(df_weights, aes(x = date, y = Weight, fill = Asset)) +
+        geom_bar(stat = "identity", position = "stack") +  # Stacked bars
+        scale_fill_manual(values = rep(brewer.pal(12, "Paired"), length.out = 37)) +
+        labs(x = "Date", y = "Weight (%)", fill = "Asset") +
+        theme_minimal() +
+        theme(legend.position = "bottom", legend.text = element_text(size = 8))
+
+    df_weights <- Equal_RetPort$BOP.Weight %>%
+        .[endpoints(., 'months')] %>%
+        xts_tbl() %>%
+        pivot_longer(cols = -date, names_to = "Asset", values_to = "Weight")
+
+    # Plot using ggplot
+    plot_6 <- ggplot(df_weights, aes(x = date, y = Weight, fill = Asset)) +
+        geom_bar(stat = "identity", position = "stack") +  # Stacked bars
+        scale_fill_manual(values = rep(brewer.pal(12, "Paired"), length.out = 37)) +
+        labs(x = "Date", y = "Weight (%)", fill = "Asset") +
+        theme_minimal() +
+        theme(legend.position = "bottom", legend.text = element_text(size = 8))
 
     All_Ret_Data <- data.frame(date = Sector_plot$date,
                                Risk_Parity = RPP_RetPort$returns,

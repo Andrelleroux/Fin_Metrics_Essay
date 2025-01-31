@@ -129,12 +129,96 @@ A third approach is used for comparison, the Equal Weighting Portfolio (EWP) is 
 
 # Results
 
+The first step of the investigation is to choose a method of risk parity calculation that can be used throughout this report. The first available methods is a naïve estimator, that assumes that assets are completely uncorrelated to each other for ease of computation, this is a very strong assumption that is unlikely to hold in reality. The second method is the standard or vanilla method that uses non-linear multivariate root finders to find an optimal solution. The third is built on top of the vanilla method and includes the expected return as an additional objective in the optimisation problem, the parameter \( \lambda_\mu \) controls the trade-off between minimising the risk parity function and maximising the expected returns. 
+
+### Figure 1: Asset Risk Contribution and Weights for Different Portfolio Approaches {-}
+
 ```{r}
 plot_1 <- Sector_Plots[[1]]
 plot_1
 ```
 
+*Figure 1* plots the relative risk contribution and weights of each asset for the different approach to the RPP, it also includes the equal weighting portfolio as a reference. It clear from the plot that the assumptions of the naïve estimator do not hold as the relative risks of the assets are not equal, the fundamental concept of RPP's. Whereas the equal weighting portfolio has equal weights in each asset, but each asset contributes a different level of risk, the RPP approach rather focuses on keeping the RC of each asset level and fluctuating the weights. There is value in a portfolio approach that can also take into account the expected returns of the portfolio, for this reason the RPP used for the remainder of the report is the RPP + mu estimation.
 
+By altering the value of the trade-off parameter (\( \lambda_\mu \)) I can plot the expected return versus how concentrated risk is in certain assets, for higher expected returns the portfolio must put more weight on asset with more risk. This plot is shown in *Figure 2*.
+
+### Figure 2: Expected Return vs Concentration of Risk {-}
+
+```{r}
+Sector_Plots[[2]]
+```
+
+*Figure 2* clearly shows diminishing returns in expected returns as risk becomes more concentrated, for the purposes of this report the value of \( \lambda_\mu \) has been set to 0.00023 in order to maximise expected returns, without sacrificing the concentration of risk to a severe degree. Thus, for the remainder of this report, the RPP will include the expected returns term and have a \( \lambda_\mu \) value of 0.00023.
+
+I then plot the cumulative results of the RPP, equal weighting and Maxumum Sharpe ratio portfolio, I also in include the ALSI and Bond indices as references to provide the context of the assets with the most and least variation. This is shown in *Figure 3*.
+
+### Figure 3: The Cumulative Returns of Portfolios and Certain Assets {-}
+
+```{r}
+Sector_Plots[[3]]
+```
+
+From *Figure 3* it is clear that the Equal Weighting portfolio outperforms the other two, this is to be expected as this portfolio invests more heavily into assets that often carry more risk, rather than diversifying more along reduced risk lines as the Maximum Sharpe portfolio or RPP does. However, the RPP outperforms the Maximum Sharpe portfolio across the specified time period. The cumulative returns of all three portfolios are widely distributed between the cumulative returns of the ALSI and ALBITR Bond Index.
+
+Next the I look at the historical weights for each portfolio to understand the changes in asset allocation throughout time. The optimal weights for each portfolio is calculated with a five year lookback period to calculate the optimal weights. The first figure, *Figure 4*, shows the historical weights of the equal weighting portfolio with the portfolio being rebalanced every quarter back to equal weights for every asset.
+
+### Figure 4: Portfolio Weights for Equal Weighting Portfolio Over Period {-}
+
+```{r, fig.width=12, fig.height=8}
+Sector_Plots[[6]]
+```
+
+What is interesting in the above plot is the surge in the bonds weight in 2008 as other assets depreciated, the same can be seen for industrials during the COVID-19 pandemic in 2020. However, by construction, the weights of the portfolio remains relatively stable throughout the period. The next figure shows the change in portfolio weights for the RPP.
+
+### Figure 5: Portfolio Weights for Risk Parity Portfolio Over Period {-}
+
+```{r}
+Sector_Plots[[4]]
+```
+
+In *Figure 5* we can see that the weights of each asset class fluctuates more than in the equal weighting portfolio, however each asset maintains a weight in the overall portfolio throughout the period. We see a consistent growth in the weights of real state from 2008 until 2017, while bonds slowly gets reduced weights over the same time period. The Covid period saw a quick spike in Bond weights before a spike in the industrials index directly after. The index for bonds maintains the largest weight throughout the period, this is expected as the bonds asset class is historically known for low risk, which in turn means a greater weight in order to have the same contribution of total risk as other assets. The following plot shows the weights of the Maximum Sharpe ratio portfolio.
+
+### Figure 6: Portfolio Weights for Risk Parity Portfolio Over Period {-}
+
+```{r}
+Sector_Plots[[5]]
+```
+
+It is clear from looking at *Figure 6* that the weights of the Maximum Sharpe ratio portfolio changes considerably more drastically than the other two portfolios. This approach often prefers one or two assets rather than the constant 6 assets of the other portfolios. The drastic changes based on the calculated optimisation problem also open the portfolio to large consequences to small errors or misjudgments in calculation. During the period at the start of 2020 the historical mean returns above the risk-free rate were extremely close to zero, thus the portfolio suggested that full portfolio rather be allowed to appreciate at this risk free rate. This portfolio shows a preference towards a balance of industrial and real estate assets throughout the middle of the total period. However, more recently more preference has been given to the commodities assets.
+
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE, fig.show='hide'}
+Sector_Analysis <- Sector_Port_Analysis(data = Sector_Plots[[7]])
+```
+
+### Figure 7: Annualised 12 Month Rolling Returns {-} 
+
+```{r}
+Sector_Analysis[[1]]
+```
+
+In *Figure 7* I plot the rolling one year returns for the portfolios, it is clear to see that the returns of the equal weighting portfolio and RPP are highly correlated, with the difference coming largely in the cariance as the equal weighting portfolio tend to peak higher and trough lower. In contrast the Max Sharpe portfolio moves similarly in certain periods, such 2008 and 2021, but differently in other. This returns for the Max Sharpe portfolio is below the other portfolios at the start and end of the period, but above for stretches from 2010 until 2016.
+
+### Figure 8: Drawdowns for Each of the Portfolios {-} 
+
+```{r}
+Sector_Analysis[[2]]
+```
+
+The largest drawdowns that can be seen in *Figure 8* is during the financial crisis in 2008 and during the COVID-19 period in 2020. However, the RPP and equal weighting portfolios recovered quite quickly, showing resilience. However, the Max Sharpe portfolio did not recover as quickly and spent longer periods before recovering. It is also important to note that the equal weighting has persistently lower drawdowns than the risk parity alternative. 
+
+### Figure 9: Rolling 12 Month Standard Deviation {-} 
+
+```{r}
+Sector_Analysis[[4]]
+```
+
+In *Figure 9* we can once again see the impact of the 2008 global financial crisis and Covid pandemic. It is important to note that the minimum standard deviation of the Max Sharpe portfolio in 2020 is due to the portfolio recommending the risk free rate, at zero deviation, making the standard deviation during this period to likely be biased towards zero for this portfolio. We again see that the standard deviation is consistently lower for the RPP than the equal weighting portfolio, in this plot we can also see that the RPP has consistently lower risk than the Max Sharpe portfolio.
+
+### Table 1: Performance Metrics for the Portfolios of Interest {-}
+
+```{r}
+Sector_Analysis[[5]]
+```
 
 
 # Conclusion
