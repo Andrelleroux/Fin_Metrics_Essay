@@ -3,7 +3,12 @@
 In this markdown folder I will explain my thinking and working for the
 coding aspect of the Financial Econometrics essay submitted in January
 2025. I will talk through the coding done to get the results represented
-in the written report of this essay
+in the written report of this essay.
+
+First I clear the environment and set the specifications of the R chunks
+that are used throughout the written report. I can then set the relevant
+working directory and call all the relevant functions from the code
+folder of the directory.
 
 ``` r
 rm(list = ls()) # Clean your environment:
