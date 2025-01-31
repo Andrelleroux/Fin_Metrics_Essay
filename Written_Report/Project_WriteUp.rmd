@@ -58,10 +58,23 @@ Rebal_Days <- Data[[3]]
 Sector_Plots <- Sector_Risk_Parity(data = LCL_Index_dat, rebal = Rebal_Days)
 ```
 
-
 # Introduction 
 
+Portfolio management has long been concerned with the trade-off between risk and return, with the @markowitz1952modern mean-variance framework serving as a foundational model in modern finance. This pioneering work introduced the concept of optimising portfolios by maximising expected return relative to risk, defined as variance. However, despite its theoretical significance, the mean-variance approach has faced substantial criticism over the years, particularly in its sensitivity to estimation errors and its tendency to concentrate risk in a few assets. These limitations became especially apparent during the 2008 global financial crisis, prompting a renewed interest in alternative portfolio construction methods that focus on risk diversification rather than just return optimisation.
 
+One such alternative is the risk parity approach, which has gained traction among both academics and practitioners for its ability to equalise risk contributions across portfolio assets. Unlike traditional mean-variance optimisation, which often leads to concentrated risk exposure, risk parity ensures that each asset contributes equally to the total portfolio risk. This method has been particularly appealing to institutional investors, such as pension funds, seeking to construct more resilient portfolios. This essay investigates the application of the risk parity approach in a South African context, comparing its performance against two benchmark strategies: the Maximum Sharpe ratio portfolio and the equally weighted portfolio. By analysing these approaches, the study aims to assess the validity and practical effectiveness of risk parity in emerging markets like South Africa.
+
+# Literature Summary
+
+The concept of risk-based portfolio construction has evolved significantly since the @markowitz1952modern seminal article. His model, while mathematically elegant, has been criticised for its reliance on precise estimates of expected returns and covariances, which are often subject to significant forecasting errors [@jagannathan2003risk]. Moreover, empirical evidence suggests that mean-variance optimisation tends to concentrate capital in a few assets with high expected returns, inadvertently increasing the portfolio's vulnerability to shocks [@demiguel2009optimal].
+
+To address these shortcomings, risk-based allocation strategies have emerged as viable alternatives. One such approach is minimum variance portfolio optimisation, which seeks to minimise overall portfolio variance. However, this method still suffers from the issue of risk concentration, as assets with lower volatility tend to dominate the portfolio [@clarke2011minimum]. The risk parity approach, on the other hand, aims to distribute risk more evenly among assets, making it a more robust and resilient allocation strategy [@maillard2010properties]. The first risk parity fund, Bridgewater Associates' "All Weather" fund, was introduced in 1996 and gained prominence following the 2008 financial crisis due to its relative outperformance compared to traditional portfolio strategies [@asness2012leverage].
+
+Empirical studies on risk parity have demonstrated its effectiveness in enhancing portfolio stability. For instance, @qian2005risk highlights that risk parity portfolios tend to achieve higher risk-adjusted returns by avoiding concentrated risk exposure. Further research by @anderson2012will supports the claim that risk parity portfolios exhibit lower drawdowns and greater resilience in periods of market turbulence compared to mean-variance optimised portfolios. Additionally, studies have examined the regional applicability of risk parity, with evidence suggesting its potential effectiveness in both developed and emerging markets [@lee2011risk].
+
+Despite its theoretical appeal, the risk parity approach is not without its critics. Some portfolio managers argue that it inherently overweights low-volatility assets, such as bonds, leading to suboptimal returns in prolonged equity bull markets [@clarke2013risk]. Others point out that risk parity relies heavily on historical volatility estimates, which may not fully capture the dynamic nature of financial markets [@roncalli2013introduction]. However, the strategy remains widely used by institutional investors seeking to mitigate downside risk while maintaining diversified exposure.
+
+Given the increasing relevance of risk parity in global portfolio management, this study seeks to extend the literature by evaluating its application within South Africa’s financial landscape. By comparing the performance of a risk parity portfolio, a maximum Sharpe ratio portfolio, and an equally weighted portfolio, the analysis will provide insights into the robustness of risk parity in an emerging market setting. The findings will contribute to the ongoing debate on the efficacy of risk-based allocation strategies and their role in modern portfolio management.
 
 # Data 
 
@@ -220,8 +233,13 @@ In *Figure 9* we can once again see the impact of the 2008 global financial cris
 Sector_Analysis[[5]]
 ```
 
+*Table 1* provides different measures for the risk versus reward trade off in the South African context. The RPP demonstrates a balanced approach, yielding an annual return of 11.11% with a relatively low annualised risk of 10.10%. While its Sharpe ratio (0.335) is lower than that of the Equal Weighting portfolio (0.388), it significantly outperforms the Max Sharpe portfolio (0.090), which exhibits the highest risk (13.60%) but the lowest return (8.81%). This suggests that the Max Sharpe portfolio, despite its theoretical objective of maximizing risk-adjusted returns, is suboptimal in this context. This is likely due to the lack of additional constraints on the maximum weights of certain assets, causing the model to heavily weight a small number of assets, increasing risk.
+
+A key advantage of risk parity is its lower maximum drawdown (21.03%) compared to Equal Weighting (27.05%) and Max Sharpe (30.41%). Similarly, its expected shortfall (-7.60%), which measures the average loss in the worst 5% of cases, is the smallest among the three. This indicates that risk parity minimises extreme downside risk, a critical consideration in the South African market, which is at times subject to high volatility and historical macroeconomic uncertainty. While the RPP does not perform the best in terms of returns, it performs the best in minimising risk, especially downside risk. The Max Sharpe portfolio's poor performance underscores that blindly optimizing for return-to-risk ratios may not always lead to practical or robust investment strategies without additional considerations or restrictions.
 
 # Conclusion
+
+This study compares Risk Parity, Maximum Sharpe Ratio, and Equal-Weighting portfolios in the South African market, highlighting risk parity’s ability to distribute risk more evenly and enhance resilience. While the Maximum Sharpe Ratio portfolio concentrates risk in few assets, and Equal-Weighting ignores asset specific volatilities, risk parity provides a more balanced allocation, improving risk-adjusted returns, particularly limiting downside risks. The Risk Parity approach is a good strategy to consider for investors that focus considerably on limiting risk, potentially at the cost of higher returns in the long term during bullish equity markets. Further research can be done to compare this portfolio to other risk-return trade-off methods, as well as including manual constraints on the Maximum Sharpe Ratio portfolio.
 
 \newpage
 

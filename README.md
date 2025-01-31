@@ -148,8 +148,100 @@ Sector_Plots[[6]]
 
 ![](README_files/figure-markdown_github/unnamed-chunk-7-3.png)
 
+``` r
+Sector_Analysis <- Sector_Port_Analysis(data = Sector_Plots[[7]])
+```
+
 Next the function puts all the returns data and dates together in order
 to be able to do thorough analysis of the returns of each of these
 portfolios. This dataset is then parsed to a function called
 Sector_Port_Analysis in order to look at the performance of each
-portfolio.
+portfolio. The parsed dataset is then transformed to an xts object in
+order to be used in PerformanceAnalytics standardised plots. The
+following plots are created using the PerformanceAnalytic package
+
+``` r
+Sector_Analysis[[1]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
+
+``` r
+Sector_Analysis[[2]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-9-2.png)
+
+``` r
+Sector_Analysis[[3]]
+```
+
+    ## NULL
+
+``` r
+Sector_Analysis[[4]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-9-3.png)
+
+However the Risk v Return scatterplot was not included in the final
+write-up. A data frame was also constructed with the annualised return
+and standard deviation; the maximum drawdown; the expected shortfall and
+the Sharpe ratio for each portfolio. This data frame was then used to
+create a table using the knitr and KableExtra packages and written in
+LaTeX to be knitted by the Rmarkdown file.
+
+## Unused Analysis
+
+Further analysis was done originally to investigate a risk parity
+portfolio for just JSE top 40 stocks, a purely equity portfolio.
+However, this analysis was eventually left out of the written report, I
+include it here for those that are interested. Firstly I invstigated the
+different RPP methods for the stocks in the same way as the indices,
+again using the riskParityPortfolio package.
+
+``` r
+Risk_Parity_Plot <- Risk_Parity_LCL(Data[[1]])
+Risk_Parity_Plot
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
+
+Next a similar Return vs Risk plot is created for the local stocks RPP
+portfolio by sweeping through a wide range of possible values for
+lambda_mu.
+
+``` r
+Return_Risk_Plot <- Return_v_Risk(Data[[1]])
+Return_Risk_Plot
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+Next the weights throughout time are calculated to plot the cumulative
+returns of both a Risk Parity Portfolio and a Maximum Sharpe Ratio
+portfolio, the monthly returns of the JSE ALSI and JSE Top 40 are also
+plotted to show the relative relationship. First the Portfolio_Backtest
+function is used to return the weights throughout the period and the
+rebalance dates for each technique.
+
+``` r
+Stock_Weights <- Portfolio_Backtest(Data[[1]], Data[[2]])
+
+Plots_Stocks <- Portfolio_Returns(Stock_Weights[[1]], Stock_Weights[[2]], Data[[1]], Data[[2]])
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)![](README_files/figure-markdown_github/unnamed-chunk-12-2.png)
+
+These weights are then parsed to a seperate function called
+Portfolio_Returns to do further analysis and construct some plots using
+PerformanceAnalytics for the balance of weights throughout the period.
+
+``` r
+Plots_Stocks[[1]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
+
+This is definitely an interesting potential future direction of study,
+however it was not included in this essay.

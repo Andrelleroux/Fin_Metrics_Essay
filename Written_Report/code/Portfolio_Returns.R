@@ -8,14 +8,13 @@ Portfolio_Returns <- function(weights_1 = weights_df_RPP,
     Ind_join_dat <- Indices_Ret %>%
         filter(date >= as.Date("2019-03-15") & date <= as.Date("2024-12-31")) %>%
         filter(Tickers == "J203" | Tickers == "J200") %>%
-        select(-Name) %>%
         mutate(cumreturn_Ind = (cumprod(1 + Returns))) %>%
         # Start at 1
         mutate(cumreturn_Ind = cumreturn_Ind / first(cumreturn_Ind))
 
     source("code/impute_missing_returns.r")
 
-    Returns_Data <- data %>%
+    Returns_Data <- returns %>%
         mutate(Tickers = str_sub(Tickers, 1, 3)) %>%
         select(date, Tickers, Return) %>%
         spread(key = Tickers, value = Return) %>%
@@ -67,16 +66,18 @@ Portfolio_Returns <- function(weights_1 = weights_df_RPP,
             legend.position = "bottom"
         )
 
-    RPP_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
+    plot_1 <- RPP_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
                                                                              ylab = "Weight (%)",
                                                                              xlab = "Date",
                                                                              col = rep(brewer.pal(12, "Paired"), length.out = 37),
                                                                              cex.legend = 0.5)
 
-    Tan_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
+    plot_2 <- Tan_RetPort$BOP.Weight %>% .[endpoints(.,'months')] %>% chart.StackedBar(main = "Optimal Weights of Portfolio",
                                                                              ylab = "Weight (%)",
                                                                              xlab = "Date",
                                                                              col = rep(brewer.pal(12, "Paired"), length.out = 37),
                                                                              cex.legend = 0.5)
+
+    Returns_List <- list(Cum_Plot_Data, plot_1, plot_2)
 
 }
