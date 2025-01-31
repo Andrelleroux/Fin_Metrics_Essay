@@ -8,10 +8,10 @@ output:
 
 In this markdown folder I will explain my thinking and working for the coding aspect of the Financial Econometrics essay submitted in January 2025. I will talk through the coding done to get the results represented in the written report of this essay
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, results='hide'}
 rm(list = ls()) # Clean your environment:
 gc()
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
 pacman::p_load(tidyverse, riskParityPortfolio, xts, quadprog, tbl2xts, PerformanceAnalytics,
                RColorBrewer, knitr, kableExtra)
 
@@ -48,7 +48,7 @@ This function then returns a list variable that includes the data of the stocks,
 
 ## Assets Portfolios Construction
 
-```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE, fig.show='hide'}
+```{r, results='hide', warning=FALSE, message=FALSE, fig.show='hide'}
 Sector_Plots <- Sector_Risk_Parity(data = LCL_Index_dat, rebal = Rebal_Days)
 ```
 
@@ -76,7 +76,7 @@ Sector_Plots[[3]]
 
 Next the PerformanceAnalytics package allows me to plot the weights of the portfolio at the start of each month throughout the period. This shows the different approaches to diversification very clearly, with the RPP preferring to invest more into bonds throughout the period, while the Max Sharpe ratio portfolio changes the structure and preference of the assets very regularly. The plots were originally made with the PerformanceAnalytics package, however in order to adapt their appearance the dataset was converted to a data frame and plotted with ggplot.
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10}
+```{r, message=FALSE, warning=FALSE, fig.width=10}
 Sector_Plots[[4]]
 Sector_Plots[[5]]
 Sector_Plots[[6]]

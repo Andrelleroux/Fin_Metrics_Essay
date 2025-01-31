@@ -5,6 +5,17 @@ coding aspect of the Financial Econometrics essay submitted in January
 2025. I will talk through the coding done to get the results represented
 in the written report of this essay
 
+``` r
+rm(list = ls()) # Clean your environment:
+gc()
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+pacman::p_load(tidyverse, riskParityPortfolio, xts, quadprog, tbl2xts, PerformanceAnalytics,
+               RColorBrewer, knitr, kableExtra)
+
+setwd("~/Masters_2024_stuff/Financial_Econometrics/Fin_Metrics_Project")
+list.files('Written_Report/code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
+```
+
 ## Packages
 
 What follows is the list of packages that have been used throughout the
@@ -22,6 +33,13 @@ functions of this project:
 
 ## Setting up the Data
 
+``` r
+Data <- Data_Setup()
+
+LCL_Index_dat <- Data[[2]]
+Rebal_Days <- Data[[3]]
+```
+
 The Data_Setup function takes the data folders provider by the
 administrator of the module and reads them into data frames. The Stock
 specific daily data for the JSE is adapted to only include the current
@@ -37,6 +55,10 @@ later points.
 
 ## Assets Portfolios Construction
 
+``` r
+Sector_Plots <- Sector_Risk_Parity(data = LCL_Index_dat, rebal = Rebal_Days)
+```
+
 Here the data from the initial function is parsed to the
 Sector_Risk_Parity function to construct and plot relevant aspects of
 the portfolios. All relevant plots that are computed along the way and
@@ -47,6 +69,10 @@ other indices. This is a separate function called impute_missing_returns
 that, when used with the specifics that I chose, will draw the
 replacement values from the distribution of that specific variable.
 
+``` r
+Sector_Plots[[1]]
+```
+
 ![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 The first step was to look at the different methods of risk parity that
@@ -54,6 +80,10 @@ is allowed by the riskParityPortfolio. This is compared to an equal
 weighting portfolio to demonstrate differences in approach. The RPP + mu
 is chosen as it allows for the additional consideration of returns in
 the construction of the portfolio.
+
+``` r
+Sector_Plots[[2]]
+```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
@@ -85,6 +115,10 @@ the index specific returns of the bond market and the JSE ALSI to plot
 the cumulative returns of all the portfolios and other two indices. As
 seen below.
 
+``` r
+Sector_Plots[[3]]
+```
+
 ![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 Next the PerformanceAnalytics package allows me to plot the weights of
@@ -96,7 +130,23 @@ the assets very regularly. The plots were originally made with the
 PerformanceAnalytics package, however in order to adapt their appearance
 the dataset was converted to a data frame and plotted with ggplot.
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)![](README_files/figure-markdown_github/unnamed-chunk-7-2.png)![](README_files/figure-markdown_github/unnamed-chunk-7-3.png)
+``` r
+Sector_Plots[[4]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+``` r
+Sector_Plots[[5]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-7-2.png)
+
+``` r
+Sector_Plots[[6]]
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-7-3.png)
 
 Next the function puts all the returns data and dates together in order
 to be able to do thorough analysis of the returns of each of these
